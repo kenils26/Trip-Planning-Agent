@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets — NEVER commit these
+.env
+.env.local
+.env.*.local
+
+# Mastra build / runtime output
+.mastra/
+dist/
+build/
+
+# LibSQL / SQLite local databases
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Planning files
+PROJECT_PLAN.md
