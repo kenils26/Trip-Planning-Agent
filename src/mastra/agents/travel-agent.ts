@@ -4,6 +4,7 @@ import { Memory } from "@mastra/memory";
 import { LibSQLStore } from "@mastra/libsql";
 import { convertCurrency } from "../tools/currency";
 import { getWeather } from "../tools/weather";
+import { searchActivities } from "../tools/activities";
 
 // Memory gives the agent the ability to remember. It is backed by LibSQL — a
 // local SQLite file that persists to disk, so memories survive restarts.
@@ -65,6 +66,8 @@ How to behave:
   when the user asks about current conditions or what to pack. For seasonal "best
   time to visit" questions, rely on your own knowledge — the tool only gives
   current weather, not forecasts.
+- You can find attractions and things to do in a city using your search-activities
+  tool. Use it when the user asks what to see or do at a destination.
 - You do NOT yet have access to live flight, train, or hotel data. If a user asks
   for specific prices or availability of those, be honest that you can't look that
   up yet, and offer general guidance instead.
@@ -83,5 +86,5 @@ Keep replies short and conversational unless the user asks for detail.
 
   // Tools the agent can choose to call. The LLM decides when to use each one
   // based on its description. Add more tools to this object as we build them.
-  tools: { convertCurrency, getWeather },
+  tools: { convertCurrency, getWeather, searchActivities },
 });
