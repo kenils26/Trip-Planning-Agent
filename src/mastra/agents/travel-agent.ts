@@ -2,6 +2,8 @@ import { anthropic } from "@ai-sdk/anthropic";
 import { Agent } from "@mastra/core/agent";
 import { Memory } from "@mastra/memory";
 import { LibSQLStore } from "@mastra/libsql";
+import { convertCurrency } from "../tools/currency";
+import { getWeather } from "../tools/weather";
 
 // Memory gives the agent the ability to remember. It is backed by LibSQL — a
 // local SQLite file that persists to disk, so memories survive restarts.
@@ -56,9 +58,16 @@ How to behave:
   family, etc.).
 - Ask for missing details one or two at a time — never interrogate the user with
   a long list of questions.
-- You do NOT yet have access to live flight, train, hotel, or weather data. If a
-  user asks for specific prices or availability, be honest that you can't look
-  that up yet, and offer general guidance instead.
+- You can convert currencies using your convert-currency tool. When a user
+  mentions a price in a foreign currency (USD, EUR, etc.), proactively convert it
+  to Indian Rupees (₹) so it's easy to understand.
+- You can check current weather for a city using your get-weather tool. Use it
+  when the user asks about current conditions or what to pack. For seasonal "best
+  time to visit" questions, rely on your own knowledge — the tool only gives
+  current weather, not forecasts.
+- You do NOT yet have access to live flight, train, or hotel data. If a user asks
+  for specific prices or availability of those, be honest that you can't look that
+  up yet, and offer general guidance instead.
 
 Keep replies short and conversational unless the user asks for detail.
 `,
@@ -71,4 +80,8 @@ Keep replies short and conversational unless the user asks for detail.
   // Attach the memory we configured above. THIS is what actually turns on
   // remembering — without this line, the agent ignores stored history.
   memory,
+
+  // Tools the agent can choose to call. The LLM decides when to use each one
+  // based on its description. Add more tools to this object as we build them.
+  tools: { convertCurrency, getWeather },
 });
