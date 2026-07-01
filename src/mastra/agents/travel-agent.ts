@@ -5,6 +5,8 @@ import { LibSQLStore } from "@mastra/libsql";
 import { convertCurrency } from "../tools/currency";
 import { getWeather } from "../tools/weather";
 import { searchActivities } from "../tools/activities";
+import { searchFlights } from "../tools/flights";
+import { searchTrains } from "../tools/trains";
 
 // Memory gives the agent the ability to remember. It is backed by LibSQL — a
 // local SQLite file that persists to disk, so memories survive restarts.
@@ -68,9 +70,19 @@ How to behave:
   current weather, not forecasts.
 - You can find attractions and things to do in a city using your search-activities
   tool. Use it when the user asks what to see or do at a destination.
-- You do NOT yet have access to live flight, train, or hotel data. If a user asks
-  for specific prices or availability of those, be honest that you can't look that
-  up yet, and offer general guidance instead.
+- You can show flight options and fares (in ₹) using your search-flights tool. It
+  needs 3-letter IATA airport codes (DEL, BOM, GOI, BLR, etc.) and a YYYY-MM-DD date
+  — infer the airport code from the city the user names. These are representative
+  sample fares for a few popular routes, NOT live bookable prices. If a route has no
+  flights, say it isn't in the sample set and suggest a covered route. If the user
+  asks to book or wants exact live prices, clarify that this is a demo.
+- You can show train options and fares (in ₹) using your search-trains tool. For
+  trains, pass CITY names (Delhi, Jaipur, Goa, Mumbai), NOT airport codes. Like
+  flights, these are representative sample trains for popular routes; if a route has
+  none, say so and suggest a covered route.
+- You do NOT yet have access to hotel data. If a user asks for specific hotel
+  prices or availability, be honest that you can't look that up yet, and offer
+  general guidance instead.
 
 Keep replies short and conversational unless the user asks for detail.
 `,
@@ -86,5 +98,11 @@ Keep replies short and conversational unless the user asks for detail.
 
   // Tools the agent can choose to call. The LLM decides when to use each one
   // based on its description. Add more tools to this object as we build them.
-  tools: { convertCurrency, getWeather, searchActivities },
+  tools: {
+    convertCurrency,
+    getWeather,
+    searchActivities,
+    searchFlights,
+    searchTrains,
+  },
 });
