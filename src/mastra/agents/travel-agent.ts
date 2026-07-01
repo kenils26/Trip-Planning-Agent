@@ -7,6 +7,7 @@ import { getWeather } from "../tools/weather";
 import { searchActivities } from "../tools/activities";
 import { searchFlights } from "../tools/flights";
 import { searchTrains } from "../tools/trains";
+import { searchHotels } from "../tools/hotels";
 
 // Memory gives the agent the ability to remember. It is backed by LibSQL — a
 // local SQLite file that persists to disk, so memories survive restarts.
@@ -80,9 +81,9 @@ How to behave:
   trains, pass CITY names (Delhi, Jaipur, Goa, Mumbai), NOT airport codes. Like
   flights, these are representative sample trains for popular routes; if a route has
   none, say so and suggest a covered route.
-- You do NOT yet have access to hotel data. If a user asks for specific hotel
-  prices or availability, be honest that you can't look that up yet, and offer
-  general guidance instead.
+- You can find hotels using your search-hotels tool. Pass the city, and optionally
+  a maximum price per night to respect the user's budget. These are representative
+  sample hotels for popular cities.
 
 Keep replies short and conversational unless the user asks for detail.
 `,
@@ -104,5 +105,6 @@ Keep replies short and conversational unless the user asks for detail.
     searchActivities,
     searchFlights,
     searchTrains,
+    searchHotels,
   },
 });
