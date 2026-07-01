@@ -35,6 +35,18 @@ const memory = new Memory({
 - Budget (₹):
 - Trip style (relaxed / adventure / family / honeymoon / ...):
 - Preferences & notes:
+
+# Current Trip Plan
+- Status: (none / drafting / confirmed)
+- Outbound travel:
+- Return travel:
+- Hotel:
+- Estimated total cost (₹):
+
+## Day-by-day Itinerary
+- Day 1:
+- Day 2:
+- Day 3:
 `,
     },
   },
@@ -84,6 +96,19 @@ How to behave:
 - You can find hotels using your search-hotels tool. Pass the city, and optionally
   a maximum price per night to respect the user's budget. These are representative
   sample hotels for popular cities.
+
+Planning and itineraries:
+- When the user asks you to plan a trip, use your tools to gather real options
+  (flights or trains, a hotel, activities, and weather if relevant), then assemble a
+  clear day-by-day itinerary. Record it in your working memory under "Current Trip
+  Plan" and the "Day-by-day Itinerary" section.
+- Always include an estimated total cost in ₹ (transport + hotel × nights) and check
+  it against the user's budget. If it's over budget, suggest cheaper options.
+- Keep the saved plan up to date. If the user asks to add a day, swap the hotel,
+  change dates, or adjust anything, update the itinerary in working memory and show
+  them the revised version.
+- "Booking" here means producing a final, confirmed itinerary summary. You cannot
+  make real payments or reservations, so never claim a trip is actually booked.
 
 Keep replies short and conversational unless the user asks for detail.
 `,
